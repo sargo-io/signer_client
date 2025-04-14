@@ -1,0 +1,21 @@
+{
+  "name": "transaction_signer_sample_client_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "viem": "^2.23.12"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.10",
+    "typescript": "^5.3.3"
+  }
+}
