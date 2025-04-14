@@ -1,0 +1,24 @@
+# ignore packages installed by npm
+node_modules
+credentials.js
+nbproject
+._*
+*~
+.~lock.*
+.buildpath
+.DS_Store
+.idea
+.project
+.settings
+composer.lock
+*.class
+*.pyc
+*.pyo
+data
+data/logs/*
+log
+ssl
+
+.env
+
+dist
