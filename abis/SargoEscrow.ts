@@ -5,38 +5,135 @@ export const SargoEscrowAbi = [
     type: "constructor",
   },
   {
-    anonymous: false,
+    inputs: [],
+    name: "AccessControlBadConfirmation",
+    type: "error",
+  },
+  {
     inputs: [
       {
-        indexed: false,
         internalType: "address",
-        name: "previousAdmin",
+        name: "account",
         type: "address",
       },
       {
-        indexed: false,
+        internalType: "bytes32",
+        name: "neededRole",
+        type: "bytes32",
+      },
+    ],
+    name: "AccessControlUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
-        name: "newAdmin",
+        name: "target",
         type: "address",
       },
     ],
-    name: "AdminChanged",
-    type: "event",
+    name: "AddressEmptyCode",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "implementation",
+        type: "address",
+      },
+    ],
+    name: "ERC1967InvalidImplementation",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC1967NonPayable",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "EnforcedPause",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ExpectedPause",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "FailedCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidInitialization",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotInitializing",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+    ],
+    name: "OwnableInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "OwnableUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UUPSUnauthorizedCallContext",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "slot",
+        type: "bytes32",
+      },
+    ],
+    name: "UUPSUnsupportedProxiableUUID",
+    type: "error",
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -51,7 +148,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -101,31 +198,142 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
+            internalType: "string",
+            name: "paymentMethod",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "timestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "clientApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "tokenName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "tokenAddress",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
+          },
+        ],
+        indexed: false,
+        internalType: "struct SargoBase.Transaction",
+        name: "txn",
+        type: "tuple",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "reason",
+        type: "string",
+      },
+    ],
+    name: "AgentCancelApproved",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "refNumber",
+            type: "string",
+          },
+          {
+            internalType: "enum SargoBase.TxType",
+            name: "txType",
+            type: "uint8",
+          },
+          {
+            internalType: "enum SargoBase.Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "string",
+            name: "currencyCode",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "conversionRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "totalAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "netAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "agentFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "treasuryFee",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "clientAccount",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "agentAccount",
+            type: "address",
           },
           {
             internalType: "string",
@@ -148,34 +356,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -186,6 +374,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -203,27 +396,14 @@ export const SargoEscrowAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "beacon",
+        name: "clientAccount",
         type: "address",
       },
-    ],
-    name: "BeaconUpgraded",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -238,7 +418,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -288,31 +468,142 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
+            internalType: "string",
+            name: "paymentMethod",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "timestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "clientApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "tokenName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "tokenAddress",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
+          },
+        ],
+        indexed: false,
+        internalType: "struct SargoBase.Transaction",
+        name: "txn",
+        type: "tuple",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "reason",
+        type: "string",
+      },
+    ],
+    name: "ClientCancelApproved",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "refNumber",
+            type: "string",
+          },
+          {
+            internalType: "enum SargoBase.TxType",
+            name: "txType",
+            type: "uint8",
+          },
+          {
+            internalType: "enum SargoBase.Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "string",
+            name: "currencyCode",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "conversionRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "totalAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "netAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "agentFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "treasuryFee",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "clientAccount",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "agentAccount",
+            type: "address",
           },
           {
             internalType: "string",
@@ -335,34 +626,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -373,6 +644,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -389,9 +665,9 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint8",
+        internalType: "uint64",
         name: "version",
-        type: "uint8",
+        type: "uint64",
       },
     ],
     name: "Initialized",
@@ -434,15 +710,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -457,7 +733,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -507,33 +783,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -554,34 +803,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -592,6 +821,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -683,15 +917,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -706,7 +940,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -756,33 +990,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -803,34 +1010,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -841,6 +1028,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -863,15 +1055,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -886,7 +1078,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -936,31 +1128,142 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
+            internalType: "string",
+            name: "paymentMethod",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "timestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "clientApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "tokenName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "tokenAddress",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
+          },
+        ],
+        indexed: false,
+        internalType: "struct SargoBase.Transaction",
+        name: "txn",
+        type: "tuple",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "reason",
+        type: "string",
+      },
+    ],
+    name: "TransactionCancelling",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "refNumber",
+            type: "string",
+          },
+          {
+            internalType: "enum SargoBase.TxType",
+            name: "txType",
+            type: "uint8",
+          },
+          {
+            internalType: "enum SargoBase.Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "string",
+            name: "currencyCode",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "conversionRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "totalAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "netAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "agentFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "treasuryFee",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "clientAccount",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "agentAccount",
+            type: "address",
           },
           {
             internalType: "string",
@@ -983,34 +1286,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1021,6 +1304,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1043,15 +1331,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1066,7 +1354,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1116,33 +1404,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -1163,34 +1424,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1201,6 +1442,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1217,15 +1463,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1240,7 +1486,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1290,33 +1536,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -1337,34 +1556,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1375,6 +1574,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1397,15 +1601,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1420,7 +1624,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1470,33 +1674,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -1517,34 +1694,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1555,6 +1712,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1571,15 +1733,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1594,7 +1756,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1644,33 +1806,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -1691,34 +1826,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1729,6 +1844,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1751,15 +1871,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1774,7 +1894,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1824,33 +1944,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -1871,34 +1964,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -1909,6 +1982,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -1925,15 +2003,15 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: "address",
+        name: "clientAccount",
+        type: "address",
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
+        internalType: "address",
+        name: "agentAccount",
+        type: "address",
       },
       {
         components: [
@@ -1948,7 +2026,7 @@ export const SargoEscrowAbi = [
             type: "string",
           },
           {
-            internalType: "enum SargoBase.TransactionType",
+            internalType: "enum SargoBase.TxType",
             name: "txType",
             type: "uint8",
           },
@@ -1998,33 +2076,6 @@ export const SargoEscrowAbi = [
             type: "address",
           },
           {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
             internalType: "string",
             name: "paymentMethod",
             type: "string",
@@ -2045,34 +2096,14 @@ export const SargoEscrowAbi = [
             type: "bool",
           },
           {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
           },
           {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
           },
           {
             internalType: "string",
@@ -2083,6 +2114,11 @@ export const SargoEscrowAbi = [
             internalType: "address",
             name: "tokenAddress",
             type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
           },
         ],
         indexed: false,
@@ -2134,37 +2170,13 @@ export const SargoEscrowAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_txnId",
-        type: "uint256",
-      },
-    ],
-    name: "acceptDeposit",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "acountHistory",
+    inputs: [],
+    name: "UPGRADE_INTERFACE_VERSION",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "string",
         name: "",
-        type: "uint256",
+        type: "string",
       },
     ],
     stateMutability: "view",
@@ -2178,7 +2190,20 @@ export const SargoEscrowAbi = [
         type: "uint256",
       },
     ],
-    name: "agentConfirmPayment",
+    name: "acceptBuy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_txnId",
+        type: "uint256",
+      },
+    ],
+    name: "agentApprove",
     outputs: [],
     stateMutability: "payable",
     type: "function",
@@ -2196,7 +2221,73 @@ export const SargoEscrowAbi = [
         type: "string",
       },
     ],
-    name: "cancelTransaction",
+    name: "agentApproveCancel",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_currencyCode",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_conversionRate",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_paymentMethod",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_agentAccount",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_tokenName",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_tokenAddress",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "_directApproved",
+        type: "bool",
+      },
+    ],
+    name: "buy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_txnId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_reason",
+        type: "string",
+      },
+    ],
+    name: "cancelTx",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -2214,7 +2305,7 @@ export const SargoEscrowAbi = [
         type: "string",
       },
     ],
-    name: "claimTransaction",
+    name: "claimTx",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -2227,9 +2318,27 @@ export const SargoEscrowAbi = [
         type: "uint256",
       },
     ],
-    name: "clientConfirmPayment",
+    name: "clientApprove",
     outputs: [],
     stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_txnId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_reason",
+        type: "string",
+      },
+    ],
+    name: "clientApproveCancel",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -2283,7 +2392,7 @@ export const SargoEscrowAbi = [
         type: "string",
       },
     ],
-    name: "disputeTransaction",
+    name: "disputeTx",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -2296,25 +2405,6 @@ export const SargoEscrowAbi = [
         internalType: "address",
         name: "",
         type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "getAcountHistoryLength",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -2355,37 +2445,6 @@ export const SargoEscrowAbi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "getEarnings",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "totalEarned",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "timestamp",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct SargoBase.Earning",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "bytes32",
         name: "role",
         type: "bytes32",
@@ -2406,168 +2465,19 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_txnId",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    name: "getTransactionById",
+    name: "getTransferFee",
     outputs: [
       {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "refNumber",
-            type: "string",
-          },
-          {
-            internalType: "enum SargoBase.TransactionType",
-            name: "txType",
-            type: "uint8",
-          },
-          {
-            internalType: "enum SargoBase.Status",
-            name: "status",
-            type: "uint8",
-          },
-          {
-            internalType: "string",
-            name: "currencyCode",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "conversionRate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "totalAmount",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "netAmount",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentFee",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "treasuryFee",
-            type: "uint256",
-          },
-          {
-            internalType: "address",
-            name: "clientAccount",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "agentAccount",
-            type: "address",
-          },
-          {
-            components: [
-              {
-                internalType: "string",
-                name: "clientPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "clientName",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentPhoneNumber",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "agentName",
-                type: "string",
-              },
-            ],
-            internalType: "struct SargoBase.CounterParty",
-            name: "account",
-            type: "tuple",
-          },
-          {
-            internalType: "string",
-            name: "paymentMethod",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "timestamp",
-            type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "clientApproved",
-            type: "bool",
-          },
-          {
-            internalType: "bool",
-            name: "agentApproved",
-            type: "bool",
-          },
-          {
-            internalType: "string",
-            name: "clientKey",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "agentKey",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "requestIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "clientPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "agentPairedIndex",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "businessNumber",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "tokenName",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "tokenAddress",
-            type: "address",
-          },
-        ],
-        internalType: "struct SargoBase.Transaction",
+        internalType: "uint256",
         name: "",
-        type: "tuple",
+        type: "uint256",
       },
     ],
-    stateMutability: "view",
+    stateMutability: "pure",
     type: "function",
   },
   {
@@ -2618,6 +2528,132 @@ export const SargoEscrowAbi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_txnId",
+        type: "uint256",
+      },
+    ],
+    name: "getTx",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "refNumber",
+            type: "string",
+          },
+          {
+            internalType: "enum SargoBase.TxType",
+            name: "txType",
+            type: "uint8",
+          },
+          {
+            internalType: "enum SargoBase.Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "string",
+            name: "currencyCode",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "conversionRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "totalAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "netAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "agentFee",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "treasuryFee",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "clientAccount",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "agentAccount",
+            type: "address",
+          },
+          {
+            internalType: "string",
+            name: "paymentMethod",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "timestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "clientApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApproved",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "clientApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "agentApprovedCancel",
+            type: "bool",
+          },
+          {
+            internalType: "string",
+            name: "tokenName",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "tokenAddress",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "directApproved",
+            type: "bool",
+          },
+        ],
+        internalType: "struct SargoBase.Transaction",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes32",
         name: "role",
         type: "bytes32",
@@ -2661,11 +2697,6 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
-      },
-      {
-        internalType: "address",
         name: "_treasuryAddress",
         type: "address",
       },
@@ -2684,134 +2715,16 @@ export const SargoEscrowAbi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_amount",
+        name: "_txnId",
         type: "uint256",
       },
       {
         internalType: "string",
-        name: "_currencyCode",
+        name: "_reason",
         type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_conversionRate",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "_paymentMethod",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_businessNumber",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_clientName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_clientPhoneNumber",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_agentAccount",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_agentName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_agentPhoneNumber",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_tokenName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
       },
     ],
-    name: "initiateDeposit",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "_currencyCode",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_conversionRate",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "_paymentMethod",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_businessNumber",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_agentName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_agentPhoneNumber",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_clientAccount",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_clientName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_clientPhoneNumber",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_tokenName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
-      },
-    ],
-    name: "initiateWithdrawal",
+    name: "initiateCancelTx",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -2837,54 +2750,6 @@ export const SargoEscrowAbi = [
         internalType: "address",
         name: "",
         type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum SargoBase.Status",
-        name: "",
-        type: "uint8",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "paired",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "pairing",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -2946,7 +2811,7 @@ export const SargoEscrowAbi = [
         type: "string",
       },
     ],
-    name: "refundTransaction",
+    name: "refundTx",
     outputs: [],
     stateMutability: "payable",
     type: "function",
@@ -2967,37 +2832,13 @@ export const SargoEscrowAbi = [
       },
       {
         internalType: "address",
-        name: "account",
+        name: "callerConfirmation",
         type: "address",
       },
     ],
     name: "renounceRole",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum SargoBase.Status",
-        name: "",
-        type: "uint8",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "requests",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -3014,6 +2855,54 @@ export const SargoEscrowAbi = [
       },
     ],
     name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_currencyCode",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_conversionRate",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_paymentMethod",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_clientAccount",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_tokenName",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "_tokenAddress",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "_directApproved",
+        type: "bool",
+      },
+    ],
+    name: "sell",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -3095,37 +2984,6 @@ export const SargoEscrowAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "tokenAddress",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_txnId",
-        type: "uint256",
-      },
-      {
-        internalType: "enum SargoBase.Status",
-        name: "_status",
-        type: "uint8",
-      },
-    ],
-    name: "transactionStatus",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -3152,21 +3010,26 @@ export const SargoEscrowAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "unPause",
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_txnId",
+        type: "uint256",
+      },
+      {
+        internalType: "enum SargoBase.Status",
+        name: "_status",
+        type: "uint8",
+      },
+    ],
+    name: "txStatus",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "newImplementation",
-        type: "address",
-      },
-    ],
-    name: "upgradeTo",
+    inputs: [],
+    name: "unPause",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -3202,7 +3065,7 @@ export const SargoEscrowAbi = [
         type: "string",
       },
     ],
-    name: "voidTransaction",
+    name: "voidTx",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
